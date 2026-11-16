@@ -185,16 +185,16 @@ export function LandingPage({ onSelectWorkflow }) {
             </div>
 
             {/* Create workflow button (n8n signature coral button) */}
-            <div className="flex items-center">
+            <div className="inline-flex items-stretch rounded-lg overflow-hidden shadow-sm">
               <button
                 onClick={() => onSelectWorkflow('quant-finance')}
-                className="inline-flex items-center gap-2 bg-[#ff5d44] hover:bg-[#ff4e33] text-white text-xs font-semibold px-4 py-2 rounded-l-lg transition-colors shadow-sm active:scale-[0.98]"
+                className="inline-flex items-center gap-2 bg-[#ff5d44] hover:bg-[#ff4e33] text-white text-xs font-semibold px-4 py-2 transition-colors active:scale-[0.99]"
               >
                 <span>Create workflow</span>
               </button>
               <button
                 onClick={() => onSelectWorkflow('quant-finance')}
-                className="bg-[#e44d36] hover:bg-[#d63f28] text-white px-2 py-2 rounded-r-lg border-l border-white/20 transition-colors"
+                className="bg-[#ff5d44] hover:bg-[#ff4e33] text-white px-2.5 py-2 border-l border-white/20 transition-colors flex items-center justify-center active:scale-[0.99]"
                 aria-label="Workflow creation options"
               >
                 <ChevronDown className="w-3.5 h-3.5" />
