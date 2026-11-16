@@ -37,7 +37,6 @@ function FlowGraphInner({
   onStart,
   onReset,
   onOpenAudit,
-  onOpenAiBuilder,
 }) {
   const { zoomIn, zoomOut, fitView } = useReactFlow()
   const { zoom } = useViewport()
@@ -222,9 +221,9 @@ function FlowGraphInner({
         {flowState === 'Ready' && (
           <>
             <button
-              onClick={onOpenAiBuilder}
-              className="px-4 py-2.5 bg-[#17171e] hover:bg-[#20202a] text-zinc-200 border border-[#2b2b38] hover:border-purple-500/50 hover:text-white text-xs font-semibold rounded-lg flex items-center gap-2 transition-all shadow-md active:scale-[0.98] group"
-              title="Build workflow with AI Copilot"
+              type="button"
+              className="px-4 py-2.5 bg-[#17171e] hover:bg-[#20202a] text-zinc-200 border border-[#2b2b38] hover:border-purple-500/50 hover:text-white text-xs font-semibold rounded-lg flex items-center gap-2 transition-all shadow-md group cursor-default select-none"
+              title="AI Workflow Assistant"
             >
               <Bot className="w-3.5 h-3.5 text-purple-400 group-hover:text-purple-300 transition-colors" />
               <span>Build with AI</span>
