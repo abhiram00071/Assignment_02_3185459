@@ -36,8 +36,7 @@ To run and inspect the prototype locally:
 
 ```bash
 # Clone the repository
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-
+git clone https://github.com/abhiram00071/Assignment_02_3185459.git
 # Navigate to the project directory
 cd your-repo-name
 
