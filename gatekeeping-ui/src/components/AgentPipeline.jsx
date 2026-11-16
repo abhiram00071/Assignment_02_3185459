@@ -5,6 +5,7 @@ import { FlowGraph } from './FlowGraph'
 import { GatekeepingModal } from './GatekeepingModal'
 import { AuditDrawer } from './AuditDrawer'
 import { EvaluatorToolbar } from './EvaluatorToolbar'
+import { AiWorkflowBuilderModal } from './AiWorkflowBuilderModal'
 import {
   Plus,
   Home,
@@ -20,6 +21,7 @@ import {
   SlidersHorizontal,
   Clock,
   CheckCircle2,
+  Sparkles,
 } from 'lucide-react'
 
 export default function AgentPipeline({ onBack }) {
@@ -28,6 +30,20 @@ export default function AgentPipeline({ onBack }) {
   const [auditOpen, setAuditOpen] = useState(false)
   const [activeCanvasTab, setActiveCanvasTab] = useState('Editor') // 'Editor' | 'Executions' | 'Evaluator'
   const [isWorkflowActive, setIsWorkflowActive] = useState(true)
+  const [isAiBuilderOpen, setIsAiBuilderOpen] = useState(false)
+  const [aiToast, setAiToast] = useState(null)
+
+  const handleApplyAiWorkflow = (config) => {
+    dispatch({ type: 'RESET' })
+    setAiToast(
+      `AI Workflow Synthesized: 4 stages with ${config.gatekeeperPolicy.toUpperCase()} policy & ${
+        config.chunkLimit === 'strict-4' ? '≤4' : '6'
+      }-chunk memory boundary active.`
+    )
+    setTimeout(() => {
+      setAiToast(null)
+    }, 4500)
+  }
 
   // Sequential execution handler for stages
   const runStage = useCallback(
@@ -303,9 +319,32 @@ export default function AgentPipeline({ onBack }) {
             onStart={handleStart}
             onReset={() => dispatch({ type: 'RESET' })}
             onOpenAudit={() => setAuditOpen(true)}
+            onOpenAiBuilder={() => setIsAiBuilderOpen(true)}
           />
         </div>
       </div>
+
+      {/* ── AI Workflow Builder Modal ──────────────────────── */}
+      <AiWorkflowBuilderModal
+        isOpen={isAiBuilderOpen}
+        onClose={() => setIsAiBuilderOpen(false)}
+        onApplyWorkflow={handleApplyAiWorkflow}
+      />
+
+      {/* ── Floating AI Synthesis Toast ────────────────────── */}
+      <AnimatePresence>
+        {aiToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-[#16161f] border border-purple-500/40 text-purple-200 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 text-xs font-mono backdrop-blur-md"
+          >
+            <Sparkles className="w-4 h-4 text-purple-400 animate-pulse" />
+            <span>{aiToast}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Progressive Disclosure Gatekeeping Modal ─────────── */}
       <AnimatePresence>

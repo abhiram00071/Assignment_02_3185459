@@ -22,6 +22,7 @@ import {
   Maximize2,
   Sliders,
   Terminal,
+  Sparkles,
 } from 'lucide-react'
 
 const nodeTypes = {
@@ -36,6 +37,7 @@ function FlowGraphInner({
   onStart,
   onReset,
   onOpenAudit,
+  onOpenAiBuilder,
 }) {
   const { zoomIn, zoomOut, fitView } = useReactFlow()
   const { zoom } = useViewport()
@@ -216,15 +218,26 @@ function FlowGraphInner({
       </div>
 
       {/* ── Bottom-Center Floating Execution Action Bar (n8n signature) */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3">
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2.5">
         {flowState === 'Ready' && (
-          <button
-            onClick={onStart}
-            className="px-5 py-2.5 bg-[#ff5d44] hover:bg-[#ff4e33] text-white text-xs font-semibold rounded-lg flex items-center gap-2 transition-colors active:scale-[0.98]"
-          >
-            <Play className="w-3.5 h-3.5 fill-current" />
-            <span>Execute workflow</span>
-          </button>
+          <>
+            <button
+              onClick={onOpenAiBuilder}
+              className="px-4 py-2.5 bg-[#17171e] hover:bg-[#20202a] text-zinc-200 border border-[#2b2b38] hover:border-purple-500/50 hover:text-white text-xs font-semibold rounded-lg flex items-center gap-2 transition-all shadow-md active:scale-[0.98] group"
+              title="Build workflow with AI Copilot"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-purple-400 group-hover:text-purple-300 transition-colors animate-pulse" />
+              <span>Build with AI</span>
+            </button>
+
+            <button
+              onClick={onStart}
+              className="px-5 py-2.5 bg-[#ff5d44] hover:bg-[#ff4e33] text-white text-xs font-semibold rounded-lg flex items-center gap-2 transition-colors active:scale-[0.98] shadow-md"
+            >
+              <Play className="w-3.5 h-3.5 fill-current" />
+              <span>Execute workflow</span>
+            </button>
+          </>
         )}
 
         {flowState === 'Act' && (
