@@ -5,6 +5,7 @@ import {
   Controls,
   MarkerType,
   useReactFlow,
+  useViewport,
   ReactFlowProvider,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
@@ -16,6 +17,7 @@ import {
   CheckCircle2,
   AlertOctagon,
   Plus,
+  Minus,
   StickyNote,
   Maximize2,
   Sliders,
@@ -36,6 +38,7 @@ function FlowGraphInner({
   onOpenAudit,
 }) {
   const { zoomIn, zoomOut, fitView } = useReactFlow()
+  const { zoom } = useViewport()
 
   // Construct nodes from stage data positioned cleanly along the canvas center
   const nodes = useMemo(() => {
@@ -134,8 +137,8 @@ function FlowGraphInner({
         edges={edges}
         nodeTypes={nodeTypes}
         fitView
-        fitViewOptions={{ padding: 0.25 }}
-        minZoom={0.3}
+        fitViewOptions={{ padding: 0.5, maxZoom: 0.8 }}
+        minZoom={0.25}
         maxZoom={1.8}
         proOptions={{ hideAttribution: true }}
         nodesDraggable={true}
@@ -178,7 +181,7 @@ function FlowGraphInner({
           <StickyNote className="w-4 h-4" />
         </button>
         <button
-          onClick={() => fitView({ padding: 0.25, duration: 300 })}
+          onClick={() => fitView({ padding: 0.5, maxZoom: 0.8, duration: 300 })}
           className="w-8 h-8 rounded-lg bg-[#141418] border border-[#262632] hover:bg-[#1d1d24] text-zinc-400 hover:text-zinc-200 flex items-center justify-center transition-colors shadow-md"
           title="Fit view"
         >
@@ -187,28 +190,28 @@ function FlowGraphInner({
       </div>
 
       {/* ── Bottom-Left Canvas Navigation Controls ───────────── */}
-      <div className="absolute bottom-4 left-4 z-10 flex items-center gap-1 bg-[#141418] border border-[#222228] p-1 rounded-lg shadow-lg">
+      <div className="absolute bottom-4 left-4 z-10 flex items-center bg-[#141418] border border-[#222228] rounded-lg shadow-lg px-2 py-1 gap-1.5 select-none">
         <button
-          onClick={() => fitView({ padding: 0.25, duration: 300 })}
-          className="w-7 h-7 rounded text-xs font-mono text-zinc-400 hover:text-white hover:bg-zinc-800 flex items-center justify-center transition-colors"
-          title="Reset View"
+          onClick={() => fitView({ padding: 0.5, maxZoom: 0.8, duration: 250 })}
+          className="px-2 py-0.5 rounded text-xs font-mono text-zinc-300 hover:text-white hover:bg-[#202028] transition-colors flex items-center justify-center min-w-[46px]"
+          title="Reset Zoom to Fit"
         >
-          100%
+          {Math.round(zoom * 100)}%
         </button>
-        <div className="w-px h-4 bg-zinc-800" />
+        <div className="w-px h-3.5 bg-[#2d2d38] mx-0.5" />
         <button
           onClick={() => zoomIn({ duration: 200 })}
-          className="w-7 h-7 rounded text-sm text-zinc-400 hover:text-white hover:bg-zinc-800 flex items-center justify-center transition-colors"
+          className="w-6 h-6 rounded text-zinc-400 hover:text-white hover:bg-[#202028] flex items-center justify-center transition-colors active:scale-90"
           title="Zoom in"
         >
-          +
+          <Plus className="w-3.5 h-3.5" />
         </button>
         <button
           onClick={() => zoomOut({ duration: 200 })}
-          className="w-7 h-7 rounded text-sm text-zinc-400 hover:text-white hover:bg-zinc-800 flex items-center justify-center transition-colors"
+          className="w-6 h-6 rounded text-zinc-400 hover:text-white hover:bg-[#202028] flex items-center justify-center transition-colors active:scale-90"
           title="Zoom out"
         >
-          -
+          <Minus className="w-3.5 h-3.5" />
         </button>
       </div>
 
