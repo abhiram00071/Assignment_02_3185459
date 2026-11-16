@@ -21,7 +21,7 @@ import {
   SlidersHorizontal,
   Clock,
   CheckCircle2,
-  Sparkles,
+  Bot,
 } from 'lucide-react'
 
 export default function AgentPipeline({ onBack }) {
@@ -340,7 +340,7 @@ export default function AgentPipeline({ onBack }) {
             exit={{ opacity: 0, y: 20 }}
             className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-[#16161f] border border-purple-500/40 text-purple-200 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 text-xs font-mono backdrop-blur-md"
           >
-            <Sparkles className="w-4 h-4 text-purple-400 animate-pulse" />
+            <Bot className="w-4 h-4 text-purple-400" />
             <span>{aiToast}</span>
           </motion.div>
         )}
