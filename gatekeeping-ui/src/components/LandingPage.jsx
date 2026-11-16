@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { MarketTicker } from './MarketTicker'
 import {
   Plus,
   Home,
@@ -164,9 +165,14 @@ export function LandingPage({ onSelectWorkflow }) {
       </aside>
 
       {/* ── Main Content Area ──────────────────────────────── */}
-      <div className="flex-1 h-full flex flex-col min-w-0 bg-[#0e0e11] overflow-y-auto">
-        {/* Content Container */}
-        <div className="max-w-[1300px] w-full mx-auto px-8 py-8 space-y-7">
+      <div className="flex-1 h-full flex flex-col min-w-0 bg-[#0e0e11] overflow-hidden">
+        {/* ── Top Stock & Forex Market Ticker ──────────────── */}
+        <MarketTicker />
+
+        {/* ── Scrollable Content Area ────────────────────────── */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Content Container */}
+          <div className="max-w-[1300px] w-full mx-auto px-8 py-8 space-y-7">
           {/* ── Overview Header Strip ───────────────────────── */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
@@ -448,6 +454,7 @@ export function LandingPage({ onSelectWorkflow }) {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       {/* ── Simulation Modal for Non-Primary Rows ──────────── */}
