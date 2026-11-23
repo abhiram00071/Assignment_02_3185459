@@ -21,15 +21,15 @@ export function PipelineNode({ data }) {
   return (
     <div
       className={`
-        w-64 rounded-xl p-4 transition-all duration-300 relative select-none
+        w-64 rounded-xl p-4 transition-all duration-200 relative select-none
         ${
           status === 'running'
-            ? 'bg-gradient-to-b from-zinc-900 to-zinc-950 border-2 border-emerald-500/60 shadow-lg shadow-emerald-500/10'
+            ? 'bg-[#16161d] border border-emerald-500/70'
             : status === 'paused'
-            ? 'bg-gradient-to-b from-zinc-900 to-zinc-950 border-2 border-rose-500/60 shadow-lg shadow-rose-500/15'
+            ? 'bg-[#181518] border border-rose-500/70'
             : status === 'completed'
-            ? 'bg-gradient-to-b from-zinc-900/90 to-zinc-950 border border-emerald-500/30'
-            : 'bg-gradient-to-b from-zinc-900/50 to-zinc-950 border border-zinc-800/80 hover:border-zinc-700/60'
+            ? 'bg-[#14141a] border border-emerald-500/30'
+            : 'bg-[#141419] border border-[#262630] hover:border-zinc-700'
         }
       `}
     >
@@ -38,6 +38,7 @@ export function PipelineNode({ data }) {
         <Handle
           type="target"
           position={Position.Left}
+          id="left"
           className="!w-3 !h-3 !bg-zinc-700 !border-2 !border-zinc-950 transition-colors"
         />
       )}
@@ -104,9 +105,18 @@ export function PipelineNode({ data }) {
         <Handle
           type="source"
           position={Position.Right}
+          id="right"
           className="!w-3 !h-3 !bg-zinc-700 !border-2 !border-zinc-950 transition-colors"
         />
       )}
+
+      {/* Bottom Handle (Connector to Explainer Node) */}
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        id="bottom"
+        className="!w-2.5 !h-2.5 !bg-indigo-500 !border-2 !border-zinc-950 transition-colors"
+      />
     </div>
   )
 }

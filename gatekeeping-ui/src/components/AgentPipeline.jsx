@@ -5,6 +5,7 @@ import { FlowGraph } from './FlowGraph'
 import { GatekeepingModal } from './GatekeepingModal'
 import { AuditDrawer } from './AuditDrawer'
 import { EvaluatorToolbar } from './EvaluatorToolbar'
+import { EvaluationGuideDrawer } from './EvaluationGuideDrawer'
 import {
   Plus,
   Home,
@@ -20,12 +21,14 @@ import {
   SlidersHorizontal,
   Clock,
   CheckCircle2,
+  BookOpen,
 } from 'lucide-react'
 
 export default function AgentPipeline({ onBack }) {
   const [state, dispatch] = useReducer(pipelineReducer, INITIAL_STATE)
   const timerRef = useRef(null)
   const [auditOpen, setAuditOpen] = useState(false)
+  const [guideOpen, setGuideOpen] = useState(false)
   const [activeCanvasTab, setActiveCanvasTab] = useState('Editor') // 'Editor' | 'Executions' | 'Evaluator'
   const [isWorkflowActive, setIsWorkflowActive] = useState(true)
 
@@ -248,8 +251,25 @@ export default function AgentPipeline({ onBack }) {
             </button>
           </div>
 
-          {/* Right: Active Toggle, Share, Saved Pill, More */}
-          <div className="flex items-center gap-3">
+          {/* Right: Examiner Guide, Active Toggle, Share, Saved Pill, More */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Academic Evaluation Guide Button */}
+            <button
+              onClick={() => setGuideOpen(true)}
+              className="relative inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#181820] hover:bg-[#20202a] border border-[#2a2a36] hover:border-[#3a3a4c] text-zinc-300 hover:text-white text-xs font-medium transition-colors cursor-pointer group"
+              title="Open Academic Research & Evaluation Guide (UoB IIS)"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-60"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
+              </span>
+              <BookOpen className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-200" />
+              <span>Examiner Guide</span>
+              <span className="hidden xl:inline text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-[#22222d] text-zinc-400 border border-[#2f2f3d]">
+                UoB IIS
+              </span>
+            </button>
+
             {/* Active / Inactive switch */}
             <div
               className="flex items-center gap-2 cursor-pointer"
@@ -325,6 +345,12 @@ export default function AgentPipeline({ onBack }) {
         auditLog={state.auditLog}
         stages={STAGES}
         stageStatuses={state.stageStatuses}
+      />
+
+      {/* ── Examiner & Evaluation Research Guide Drawer ───────── */}
+      <EvaluationGuideDrawer
+        isOpen={guideOpen}
+        onClose={() => setGuideOpen(false)}
       />
 
       {/* ── Evaluator / Developer Toolbar ────────────────────── */}

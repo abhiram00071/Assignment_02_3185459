@@ -98,9 +98,18 @@ Open your browser and navigate to `http://localhost:5173/` (or the port indicate
 
 ## 8. AI Assistance & Development Log
 
-In accordance with module development guidelines, AI coding assistants (such as Antigravity / Cursor / Claude Code) were utilized to accelerate boilerplate scaffolding and Tailwind CSS styling adherence.
+In accordance with module guidelines, an AI coding assistant (Google Antigravity / Gemini) was utilized as a directed technical accelerator. All research problem framing, cognitive design criteria, and architectural constraints originated from the student's Phase 1 literature review; the AI was strictly instructed to implement these specifications into React, Tailwind CSS, and Framer Motion.
 
-* **Prompt Example 1:** *"Refactor the static pipeline view into a 3-step state machine that pauses on step 3 and triggers a 4-chunk modal card."*  
-  * **Verification & Modification:** The AI initially generated a standard multi-step form. Manually refactored the component structure to enforce the strict 4-chunk card layout and added Framer Motion blur-backdrop transitions to ensure compliance with Cowan (2001) cognitive load principles.
-* **Prompt Example 2:** *"Build an n8n-inspired workflow overview directory and interactive full-screen node canvas with dark dot-grid styling."*  
-  * **Verification & Modification:** Audited layout to ensure zero UI collision between telemetry drawer triggers and evaluator controls. Replaced all theoretical citation badges in the user-facing UI with production-grade operational metrics, keeping academic citations strictly in documentation to maintain ecological validity.
+### 8.1 Research-to-Prompt Translation & Audit Trail
+
+| Focus Area | Literature Grounding | Prompt Instructions & Student Audit |
+| :--- | :--- | :--- |
+| **Mixed-Initiative Pipeline** | Horvitz (1999) *Act vs. Ask* | **Instruction:** Implement a 4-stage financial DAG executing autonomously in *Act* state, pausing dynamically at Step 03 when cross-feed variance exceeds 10%.<br>**Student Audit:** Adjusted state machine transitions to ensure the gatekeeper hold cannot be bypassed without explicit human action. |
+| **Cognitive Gatekeeper Modal** | Cowan (2001) $\le 4$ Chunks;<br>Parasuraman & Riley (1997) | **Instruction:** Bound modal layout strictly to 4 semantic chunks (Action, Variance Badge, Raw Telemetry Snippet, Controls); ban conversational prose to prevent the Persuasion Trap.<br>**Student Audit:** Replaced binary approve/cancel buttons with continuous parameter sliders and state rollback (Shneiderman, 2022). |
+| **Enterprise Canvas & Ticker** | Ecological Validity;<br>Endsley (1995) | **Instruction:** Build an n8n-inspired dark dashboard with live-simulated market tickers and operational telemetry metrics instead of static demo forms.<br>**Student Audit:** Stripped distracting visual glow/drop-shadows, enforced an obsidian theme, and added persistent mock-data disclaimers. |
+| **Examiner Evaluation Guide** | Norman (2013);<br>IIS Marking Rubric | **Instruction:** Add an in-situ walkthrough drawer mapping the prototype directly to module rubrics (3-min test script, 3 traps, theory matrix, conceptual spine).<br>**Student Audit:** Corrected citation nuances, replaced AI-generated decorative purple accents with native obsidian styling, and optimized fitView canvas zoom. |
+
+### 8.2 Academic Integrity & Contribution Matrix
+
+* **Student Role (100% Ownership):** Problem formulation, theoretical grounding (Cowan, Horvitz, Norman, Parasuraman, Shneiderman), UI layout specifications, verification of all telemetry metrics/citations, and quality auditing.
+* **AI Tool Role (Execution & Scaffolding):** Generating boilerplate React JSX, configuring Tailwind utility classes, scaffolding Framer Motion transitions, and implementing DOM event handlers under step-by-step instruction.

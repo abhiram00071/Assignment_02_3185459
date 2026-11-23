@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MarketTicker } from './MarketTicker'
+import { EvaluationGuideDrawer } from './EvaluationGuideDrawer'
 import {
   Plus,
   Home,
@@ -18,6 +19,8 @@ import {
   ShieldCheck,
   CheckCircle2,
   Info,
+  AlertTriangle,
+  BookOpen,
 } from 'lucide-react'
 
 export const N8N_WORKFLOWS = [
@@ -85,6 +88,8 @@ export function LandingPage({ onSelectWorkflow }) {
     'legal-audit': true,
   })
   const [modalWorkflow, setModalWorkflow] = useState(null)
+  const [showMockDataBanner, setShowMockDataBanner] = useState(true)
+  const [guideOpen, setGuideOpen] = useState(false)
 
   const tabs = ['Workflows', 'Credentials', 'Executions', 'Variables', 'Data tables']
 
@@ -169,6 +174,38 @@ export function LandingPage({ onSelectWorkflow }) {
         {/* ── Top Stock & Forex Market Ticker ──────────────── */}
         <MarketTicker />
 
+        {/* ── Simulated Mock Data Warning Banner ───────────── */}
+        <AnimatePresence>
+          {showMockDataBanner && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="w-full bg-[#141419] border-b border-[#22222a] px-4 py-1.5 flex items-center justify-between text-xs flex-shrink-0 z-20"
+            >
+              <div className="flex items-center gap-2.5 min-w-0 pr-3">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-amber-400 flex-shrink-0" />
+                <span className="text-amber-400 font-mono text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 flex-shrink-0">
+                  MOCK DATA
+                </span>
+                <span className="text-zinc-400 text-[11px] font-sans leading-tight">
+                  <span className="text-zinc-200 font-medium">Research Demonstration:</span> All market quotes, currency feeds, volatility matrices, and agent execution logs displayed across this interface are synthetic mock data for academic evaluation (UoB IIS) and do not reflect live financial positions or actual trading venues.
+                </span>
+              </div>
+
+              <button
+                onClick={() => setShowMockDataBanner(false)}
+                className="text-zinc-500 hover:text-zinc-300 p-1 rounded hover:bg-zinc-800/40 transition-colors flex-shrink-0 ml-2"
+                title="Dismiss notice"
+                aria-label="Dismiss notice"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* ── Scrollable Content Area ────────────────────────── */}
         <div className="flex-1 overflow-y-auto">
           {/* Content Container */}
@@ -184,21 +221,40 @@ export function LandingPage({ onSelectWorkflow }) {
               </p>
             </div>
 
-            {/* Create workflow button (n8n signature coral button) */}
-            <div className="inline-flex items-stretch rounded-lg overflow-hidden shadow-sm">
+            <div className="flex items-center gap-3">
+              {/* Academic Evaluation Guide Button */}
               <button
-                onClick={() => onSelectWorkflow('quant-finance')}
-                className="inline-flex items-center gap-2 bg-[#ff5d44] hover:bg-[#ff4e33] text-white text-xs font-semibold px-4 py-2 transition-colors active:scale-[0.99]"
+                onClick={() => setGuideOpen(true)}
+                className="relative inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[#181820] hover:bg-[#20202a] border border-[#2a2a36] hover:border-[#3a3a4c] text-zinc-300 hover:text-white text-xs font-medium transition-colors cursor-pointer group"
+                title="Open Academic Research & Evaluation Guide (UoB IIS)"
               >
-                <span>Create workflow</span>
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-60"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
+                </span>
+                <BookOpen className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-200" />
+                <span>Examiner Guide</span>
+                <span className="hidden sm:inline text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-[#22222d] text-zinc-400 border border-[#2f2f3d]">
+                  UoB IIS
+                </span>
               </button>
-              <button
-                onClick={() => onSelectWorkflow('quant-finance')}
-                className="bg-[#ff5d44] hover:bg-[#ff4e33] text-white px-2.5 py-2 border-l border-white/20 transition-colors flex items-center justify-center active:scale-[0.99]"
-                aria-label="Workflow creation options"
-              >
-                <ChevronDown className="w-3.5 h-3.5" />
-              </button>
+
+              {/* Create workflow button (n8n signature coral button) */}
+              <div className="inline-flex items-stretch rounded-lg overflow-hidden shadow-sm">
+                <button
+                  onClick={() => onSelectWorkflow('quant-finance')}
+                  className="inline-flex items-center gap-2 bg-[#ff5d44] hover:bg-[#ff4e33] text-white text-xs font-semibold px-4 py-2 transition-colors active:scale-[0.99]"
+                >
+                  <span>Create workflow</span>
+                </button>
+                <button
+                  onClick={() => onSelectWorkflow('quant-finance')}
+                  className="bg-[#ff5d44] hover:bg-[#ff4e33] text-white px-2.5 py-2 border-l border-white/20 transition-colors flex items-center justify-center active:scale-[0.99]"
+                  aria-label="Workflow creation options"
+                >
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -524,6 +580,12 @@ export function LandingPage({ onSelectWorkflow }) {
           </div>
         )}
       </AnimatePresence>
+
+      {/* ── Academic Examiner & Research Evaluation Drawer ──── */}
+      <EvaluationGuideDrawer
+        isOpen={guideOpen}
+        onClose={() => setGuideOpen(false)}
+      />
     </div>
   )
 }
