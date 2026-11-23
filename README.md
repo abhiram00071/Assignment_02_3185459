@@ -27,17 +27,18 @@ The interface design directly addresses three core interaction traps identified 
 
 ---
 
-## 3. Interactive 3-Step Simulation Flow
+## 3. Interactive 4-Stage Supervisory Simulation Flow
 
-The prototype guides the user through a realistic supervisory session across three distinct states:
+The prototype guides the user through a realistic supervisory session across four pipeline stages and three mixed-initiative states (`Ready` -> `Act` -> `Ask` -> `Complete`):
 
-* **Step 1: Pipeline Ready (Initialization):** A visual Directed Acyclic Graph (DAG) layout displaying the multi-step financial pipeline in standby mode.
-* **Step 2: Autonomous Execution (The "Act" State):** Low-risk ingestion and modeling steps execute automatically with non-intrusive status pills, preserving efficiency without micromanagement.
-* **Step 3: Gatekeeping Interruption (The "Ask" State):** At the Regulatory Compliance check, execution pauses. A frosted backdrop-blur modal appears, strictly adhering to the 4-chunk working memory limit:
-  * **Chunk 1: Proposed Action badge** (Short Position on Asset X - £2.5M).
-  * **Chunk 2: Inconsistency Warning badge** (Volatility feed divergence detected).
-  * **Chunk 3: Clickable Source Snippet** previewing raw terminal feeds.
-  * **Chunk 4: Reversal & Control Bar** (`[Approve Override]`, `[Edit Parameter]`, `[Rollback Step]`).
+* **Stage 1: Multi-Source Data Ingestion (*Act* State):** Autonomous ingestion of tick data across Bloomberg Terminal, Reuters Eikon, and internal Oracle DB without interrupting the operator.
+* **Stage 2: Statistical Scenario Modeling (*Act* State):** Autonomous SABR volatility surface calibration and 50,000-path Monte Carlo stress simulations.
+* **Stage 3: Regulatory Compliance Check (*Ask* State):** At the pre-trade compliance juncture, cross-feed divergence exceeds 10%, triggering an automatic execution freeze. A frosted-glass modal appears, strictly adhering to Cowan's (2001) $\le 4$ chunk working memory limit:
+  * **Chunk 1: Proposed Action badge** (Short Position on FTSE 100 Dec Puts - £2.5M notional).
+  * **Chunk 2: Inconsistency Warning badge** (+14.2% Volatility feed divergence detected).
+  * **Chunk 3: Verifiable Telemetry Snippet** (Raw JSON excerpts contrasting Bloomberg BVOL vs. Internal Oracle).
+  * **Chunk 4: Decision & Control Bar** (`[Approve]`, `[Edit Parameter]` slider, `[Rollback to Step 02]`).
+* **Stage 4: Trade Execution / Report (Post-Gate *Act* State):** Upon supervisor authorization or parameter steering, executes FIX 4.4 order routing to LSE Turquoise and archives cryptographic audit logs.
 
 ---
 
@@ -70,6 +71,7 @@ The architecture maps directly onto the module's 11-layer Conceptual Spine:
 | **4-Chunk Gatekeeping Modal** | Fully Implemented | Enforces cognitive limits ($\le 4$ items) with action badges, discrepancy warnings, source text snippets, and override controls. |
 | **Workflow Directory & Metrics** | Fully Implemented | n8n-inspired dark catalog with live operational metrics (`Runs`, `Pauses`, `Anomalies`, `Chunk Load`, `Override Rate`). |
 | **Audit Drawer & Evaluator Bar** | Fully Implemented | Provides granular telemetry logs, seeded error toggles, and step-jump testing tools for evaluation. |
+| **Examiner Walkthrough Drawer** | Fully Implemented | In-situ slide-over guide featuring a 3-minute test script, interaction trap taxonomy, and conceptual spine mapping. |
 | **Live LLM Backend API** | Stubbed (Simulated JSON) | Uses pre-scripted agent traces with seeded errors to guarantee reproducible evaluation and zero latency jitter. |
 
 ---
