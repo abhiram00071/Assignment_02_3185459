@@ -2,6 +2,7 @@
 
 **Module:** Intelligent Interactive Systems (University of Birmingham)  
 **Student ID:** 3185459  
+**README Prose Word Count:** ~1,100 words (excluding code and setup commands)  
 **Project Phase:** Phase 2 Prototype & Implementation Report  
 **Live Repository:** [https://github.com/abhiram00071/Assignment_02_3185459.git](https://github.com/abhiram00071/Assignment_02_3185459.git)
 
